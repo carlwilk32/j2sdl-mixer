@@ -1,7 +1,5 @@
 package com.github.carlwilk32.sdl.mixer;
 
-import com.github.carlwilk32.sdl.mixer.SDL_mixerLibrary.Uint32;
-import com.github.carlwilk32.sdl.mixer.SDL_mixerLibrary.Uint8;
 import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
@@ -12,20 +10,20 @@ public class Mix_Chunk extends Structure {
     public int allocated;
 
     /**
-	 * C type : Uint8
-	 */
-    public Uint8 abuf;
+     * C type : Uint8
+     */
+    public short abuf;
 
     /**
-	 * C type : Uint32
-	 */
-    public Uint32 alen;
+     * C type : Uint32
+     */
+    public long alen;
 
     /**
      * Per-sample volume, 0-128<br>
      * C type : Uint8
      */
-    public Uint8 volume;
+    public short volume;
 
     public Mix_Chunk() {
         super();
@@ -37,7 +35,7 @@ public class Mix_Chunk extends Structure {
      * @param volume Per-sample volume, 0-128<br>
      * C type : Uint8
      */
-    public Mix_Chunk(int allocated, Uint8 abuf, Uint32 alen, Uint8 volume) {
+    public Mix_Chunk(int allocated, short abuf, long alen, short volume) {
         super();
         this.allocated = allocated;
         this.abuf = abuf;

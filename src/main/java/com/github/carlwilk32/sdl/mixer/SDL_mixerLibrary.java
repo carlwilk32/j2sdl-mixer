@@ -22,6 +22,7 @@ public interface SDL_mixerLibrary extends Library {
     int MIX_CHANNELS = 8;
     int MIX_DEFAULT_FREQUENCY = 44100;
     int MIX_DEFAULT_CHANNELS = 2;
+    int MIX_DEFAULT_FORMAT = 0x8010;
     int MIX_CHANNEL_POST = -2;
     String MIX_EFFECTSMAXSPEED = "MIX_EFFECTSMAXSPEED";
 
@@ -185,7 +186,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_OpenAudio(int, Uint16, int, int)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:194</i>
      */
-    int Mix_OpenAudio(int frequency, Uint16 format, int channels, int chunksize);
+    int Mix_OpenAudio(int frequency, int format, int channels, int chunksize);
 
     /**
      * Open a specific audio device for playback.<br>
@@ -272,7 +273,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_OpenAudioDevice(int, Uint16, int, int, const char*, int)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:279</i>
      */
-    int Mix_OpenAudioDevice(int frequency, Uint16 format, int channels, int chunksize, String device, int allowed_changes);
+    int Mix_OpenAudioDevice(int frequency, int format, int channels, int chunksize, String device, int allowed_changes);
 
     /**
      * Suspend or resume the whole audio output.<br>
@@ -306,7 +307,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_QuerySpec(int*, Uint16*, int*)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:309</i>
      */
-    int Mix_QuerySpec(IntBuffer frequency, Uint16 format, IntBuffer channels);
+    int Mix_QuerySpec(IntBuffer frequency, int format, IntBuffer channels);
 
     /**
      * Dynamically change the number of channels managed by the mixer.<br>
@@ -545,7 +546,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>Mix_Chunk* Mix_QuickLoad_WAV(Uint8*)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:534</i>
      */
-    Mix_Chunk Mix_QuickLoad_WAV(Uint8 mem);
+    Mix_Chunk Mix_QuickLoad_WAV(short mem);
 
     /**
      * Load a raw audio data from memory as quickly as possible.<br>
@@ -562,7 +563,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>Mix_Chunk* Mix_QuickLoad_RAW(Uint8*, Uint32)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:549</i>
      */
-    Mix_Chunk Mix_QuickLoad_RAW(Uint8 mem, Uint32 len);
+    Mix_Chunk Mix_QuickLoad_RAW(short mem, long len);
 
     /**
      * Free an audio chunk.<br>
@@ -1084,7 +1085,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_SetPanning(int, Uint8, Uint8)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:1050</i>
      */
-    int Mix_SetPanning(int channel, Uint8 left, Uint8 right);
+    int Mix_SetPanning(int channel, short left, short right);
 
     /**
      * Set the position of a channel.<br>
@@ -1128,7 +1129,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_SetPosition(int, Sint16, Uint8)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:1092</i>
      */
-    int Mix_SetPosition(int channel, Sint16 angle, Uint8 distance);
+    int Mix_SetPosition(int channel, int angle, short distance);
 
     /**
      * Set the "distance" of a channel.<br>
@@ -1161,7 +1162,7 @@ public interface SDL_mixerLibrary extends Library {
      * Original signature : <code>int Mix_SetDistance(int, Uint8)</code><br>
      * <i>native declaration : /usr/local/include/SDL2/SDL_mixer.h:1123</i>
      */
-    int Mix_SetDistance(int channel, Uint8 distance);
+    int Mix_SetDistance(int channel, short distance);
 
     /**
      * Cause a channel to reverse its stereo.<br>
@@ -2239,11 +2240,11 @@ public interface SDL_mixerLibrary extends Library {
     }
 
     interface Mix_SetPostMix_mix_func_callback extends Callback {
-        void apply(Pointer udata, Uint8 stream, int len);
+        void apply(Pointer udata, short stream, int len);
     }
 
     interface Mix_HookMusic_mix_func_callback extends Callback {
-        void apply(Pointer udata, Uint8 stream, int len);
+        void apply(Pointer udata, short stream, int len);
     }
 
     interface Mix_HookMusicFinished_music_finished_callback extends Callback {
@@ -2256,26 +2257,6 @@ public interface SDL_mixerLibrary extends Library {
 
     interface Mix_EachSoundFont_function_callback extends Callback {
         int apply(Pointer charPtr1, Pointer voidPtr1);
-    }
-
-    class Uint8 extends PointerType {
-        public Uint8(Pointer address) {
-            super(address);
-        }
-
-        public Uint8() {
-            super();
-        }
-    }
-
-    class Uint16 extends PointerType {
-        public Uint16(Pointer address) {
-            super(address);
-        }
-
-        public Uint16() {
-            super();
-        }
     }
 
     class SDL_version extends PointerType {
@@ -2314,16 +2295,6 @@ public interface SDL_mixerLibrary extends Library {
         }
 
         public Sint16() {
-            super();
-        }
-    }
-
-    class Uint32 extends PointerType {
-        public Uint32(Pointer address) {
-            super(address);
-        }
-
-        public Uint32() {
             super();
         }
     }
