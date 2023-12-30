@@ -9,7 +9,7 @@ import java.nio.IntBuffer;
  * JNA Wrapper for library <b>SDL_mixer</b><br>
  */
 public interface SDL_mixerLibrary extends Library {
-    String JNA_LIBRARY_NAME = "SDL_mixer";
+    String JNA_LIBRARY_NAME = "SDL2_mixer";
     NativeLibrary JNA_NATIVE_LIB = NativeLibrary.getInstance(SDL_mixerLibrary.JNA_LIBRARY_NAME);
     SDL_mixerLibrary INSTANCE = Native.loadLibrary(SDL_mixerLibrary.JNA_LIBRARY_NAME, SDL_mixerLibrary.class);
 
